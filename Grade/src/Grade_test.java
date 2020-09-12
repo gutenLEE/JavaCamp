@@ -175,3 +175,5 @@ public class Grade_test {
 	}
 	
 }
+
+// 질문 search 변수가 반복적으로 선언되고 있는데 한번만 선언할 수 없나?
