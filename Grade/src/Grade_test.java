@@ -19,10 +19,10 @@ public class Grade_test {
 			choice = scan.nextInt();
 			
 			if(choice == 1) { 
-				process_input(arr);
+				performInput(arr);
 			}
 			if(choice == 2) {
-				process_output(arr);
+				performOutput(arr);
 			}
 			if(choice == 3) {
 				search(arr);
@@ -40,7 +40,7 @@ public class Grade_test {
 		}
 	}
 	
-	static void process_input(Grade arr[]) {
+	static void performInput(Grade arr[]) {
 		// new => Grade 클래스를 메모리에 올려라
 		// Heap Area [ method Area의 non-static zone 주소가 heap Area에 기록된다]
 		// 기계어 코드는 method area에 있다.
@@ -54,7 +54,7 @@ public class Grade_test {
 		
 	}
 	
-	static void process_output(Grade arr[]) {
+	static void performOutput(Grade arr[]) {
 		System.out.println("출력 블록 Grade.cnt =>" + Grade.cnt); // 디버깅 코드
 		
 		System.out.println("┌──────────────────────────────────***  성적표 ***──────────────────────────────────┐");
