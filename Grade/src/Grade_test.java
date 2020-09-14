@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+
+// 메소드에서 return을 활용하면 true, false를 굳이 사용하지 않아도 된다!
+
 public class Grade_test {
 	
 	// Stack Area [ main, process_input, process_output ] 
@@ -46,6 +49,7 @@ public class Grade_test {
 		// 기계어 코드는 method area에 있다.
 		// obj 에는 heap area에 할당된 주소가 담긴다.
 		
+		// **중복 시 return하면 이 함수는 return줄 아래로는 수행되지 않는다!!!!**
 		arr[Grade.cnt] = new Grade();
 		arr[Grade.cnt].createScore();
 		validateData(arr);
@@ -56,6 +60,12 @@ public class Grade_test {
 	
 	static void performOutput(Grade arr[]) {
 		System.out.println("출력 블록 Grade.cnt =>" + Grade.cnt); // 디버깅 코드
+		
+		// 예외처리
+		if(Grade.cnt == 0) {
+			System.out.println("출력할 성적 정보가 없습니다");
+			return;
+		}
 		
 		System.out.println("┌──────────────────────────────────***  성적표 ***──────────────────────────────────┐");
 		System.out.println("│                                                                                   │");
@@ -119,7 +129,7 @@ public class Grade_test {
 			if(arr[i].studentCode.contentEquals(search)) {
 				arr[i].searchGradeSheet();
 				F = true;
-				break; 
+				break; // 여기를 return으로 바꾸면 굳이 true, false를 사용할 필요가 없다!!!
 			}
 		}
 
@@ -167,6 +177,8 @@ public class Grade_test {
 			}
 		}
 		// after delete, to reorganize the index of array.
+		// Grade.cnt -1 을 해줘야 마지막 배열에서 오류가 안난다. 
+		//obj[99] = obj[100] => index out of range
 		for(int i = index; i < Grade.cnt; i++) {
 			arr[i] = arr[i + 1];
 		}
