@@ -32,7 +32,7 @@ public class PersonInfo extends Person {
 	void output() {
 		System.out.println("학번     이름    주소                   전화번호                     이메일");
 		System.out.println("=====================================================================================");
-		System.out.printf("%5s      %4s     %10s     %10s        %10s "+ hakbun + irum + addr + phone + email);
+		System.out.printf("%5s      %4s     %10s     %10s        %10s ", hakbun , irum , addr , phone , email);
 		System.out.println("--------------------------------------------------------------------------------------");
 
 	}

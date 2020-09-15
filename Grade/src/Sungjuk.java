@@ -31,10 +31,11 @@ public class Sungjuk extends Person {
 	@Override
 	void output() {
 		// TODO Auto-generated method stub
-		System.out.println("학번     이름    국어     영어     수학     총점     평균      등급");
-		System.out.println("====================================================================");
-		System.out.printf("%5s      %4s     %3d      %3d       %3d       %3d       %4d       %7s "+ hakbun + irum + kor + eng + math + tot + avg + grade);
-		System.out.println("--------------------------------------------------------------------");
+		process();
+		System.out.println("학번       이름      국어       영어       수학       총점       평균        등급");
+		System.out.println("=================================================================================");
+		System.out.printf("%5s      %4s     %3d      %3d       %3d       %3d       %.2f       %7s ", hakbun, irum,  kor, eng, math, tot, avg, grade);
+		System.out.println("\n-------------------------------------------------------------------------------");
 	}
 	
 	void process() {
