@@ -6,8 +6,7 @@ public class Sungjuk extends Person {
 	String grade;
 	double avg;
 	
-	Sungjuk(String hakbun, String irum){
-		super(hakbun, irum);
+	Sungjuk(){
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class Sungjuk extends Person {
 	@Override
 	void output() {
 		// TODO Auto-generated method stub
-		process();
+//		process();
 		System.out.println("학번       이름      국어       영어       수학       총점       평균        등급");
 		System.out.println("=================================================================================");
 		System.out.printf("%5s      %4s     %3d      %3d       %3d       %3d       %.2f       %7s ", hakbun, irum,  kor, eng, math, tot, avg, grade);
@@ -39,8 +38,8 @@ public class Sungjuk extends Person {
 	}
 	
 	void process() {
-		tot = kor + eng + math;
-		avg = tot / 3;
+		this.tot = this.kor + this.eng + this.math;
+		this.avg = this.tot / 3.;
 		
 		if( ( avg / 3) >= 90 ) {
 			grade = "Exellent";

@@ -6,8 +6,7 @@ public class PersonInfo extends Person {
 	String phone;
 	String email;
 	
-	PersonInfo(String hakbun, String irum){
-		super(hakbun, irum);
+	PersonInfo(){
 	}
 	
 	@Override
