@@ -6,6 +6,9 @@ public class SungjukTest {
 		Sungjuk sungjuk = new Sungjuk("학번", "이름");
 		
 		perform(sungjuk);
+		sungjuk.process();
+		
+		
 		
 	}
 	static void perform(Person obj) {
