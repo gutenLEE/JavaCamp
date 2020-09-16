@@ -8,9 +8,9 @@ public class PersonInfo extends Person implements Personable {
 	
 	@Override
 	public boolean input() {
-	Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 		
-		System.out.println("   ### 개인정보 ###");
+		System.out.println("   ### 개인정보 입력 ###");
 		
 		System.out.println("hakbun =>>");
 		hakbun = scan.next();
@@ -23,14 +23,15 @@ public class PersonInfo extends Person implements Personable {
 		System.out.println("Name =>>");
 		irum = scan.next();
 		
-		System.out.println("Korean Score =>>");
+		System.out.println("Address =>>");
 		addr = scan.next();
 		
-		System.out.println("English Score =>>");
+		System.out.println("Phone No. =>>");
 		phoneNo = scan.next();
 		
-		System.out.println("Math Score =>>");
+		System.out.println("E-mail =>>");
 		email = scan.next();
+		
 		System.out.println();
 		
 		return false;
@@ -39,8 +40,8 @@ public class PersonInfo extends Person implements Personable {
 	@Override
 	public void output() {
 		
-		System.out.println("==============================================");
-		System.out.printf("%5s    %4s     %3s       %3s       %3s      %3s", hakbun, irum, addr, phoneNo, email);
+		System.out.println("--------------------------------------------------------------------");
+		System.out.printf("%5s    %4s     %3s       %3s       %3s \n", hakbun, irum, addr, phoneNo, email);
 	}
 
 }

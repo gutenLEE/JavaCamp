@@ -42,14 +42,14 @@ public class Sungjuk extends Person implements Personable {
 	@Override
 	public void output() {
 		
-		System.out.println("==============================================");
-		System.out.printf("%5s    %4s     %3d       %3d       %3d      %3d      %.2f      %6s", hakbun, irum, kor, eng, math, tot, avg, grade);
+		System.out.println("--------------------------------------------------------------------");
+		System.out.printf("%5s    %4s     %3d       %3d       %3d      %3d      %.2f      %6s \n", hakbun, irum, kor, eng, math, tot, avg, grade);
 	}
 	
 	void process() {
 		// this 왜 해줘야 하는거야
-		this.tot = this.math + this.kor + this.eng;
-		this.avg = tot / 3.;
+		tot = math + kor + eng;
+		avg = tot / 3.;
 	
 		switch( (int)(avg / 10)) {
 			case 9: 
