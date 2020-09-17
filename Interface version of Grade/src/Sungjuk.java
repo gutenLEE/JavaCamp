@@ -13,13 +13,11 @@ public class Sungjuk extends Person implements Personable {
 		
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.println("   ### 성적 입력 ###");
-		
 		System.out.println("hakbun =>>");
 		hakbun = scan.next();
 		
-		// 학번에 exit 입력되면 input() 메서드 종료.
-		if( hakbun.equals("exit") ) {
+		// 학번에 exit 입력되면 input() 종료.
+		if( hakbun.toLowerCase().equals("exit") ) {
 			return true;
 		}
 		
@@ -34,7 +32,6 @@ public class Sungjuk extends Person implements Personable {
 		
 		System.out.println("Math Score =>>");
 		math = scan.nextInt();
-		System.out.println();
 		
 		return false;
 	}
@@ -43,15 +40,19 @@ public class Sungjuk extends Person implements Personable {
 	public void output() {
 		
 		System.out.println("--------------------------------------------------------------------");
-		System.out.printf("%5s    %4s     %3d       %3d       %3d      %3d      %.2f      %6s \n", hakbun, irum, kor, eng, math, tot, avg, grade);
-	}
+		System.out.printf("%5s    %4s     %3d       %3d       %3d      %3d      %.2f      %6s \n", 
+													hakbun, irum, kor, eng, math, tot, avg, grade);
+	} 
 	
 	void process() {
-		// this 왜 해줘야 하는거야
+
 		tot = math + kor + eng;
 		avg = tot / 3.;
 	
 		switch( (int)(avg / 10)) {
+			case 10:
+				grade = "Perfect";
+				break;
 			case 9: 
 				grade = "Exellent";
 				break;

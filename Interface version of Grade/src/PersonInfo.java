@@ -6,37 +6,34 @@ public class PersonInfo extends Person implements Personable {
 	
 	PersonInfo(){ }
 	
-	@Override
+	@Override // => annotation
 	public boolean input() {
 		Scanner scan = new Scanner(System.in);
-		
-		System.out.println("   ### 개인정보 입력 ###");
 		
 		System.out.println("hakbun =>>");
 		hakbun = scan.next();
 		
-		// 학번에 exit 입력되면 input() 메서드 종료.
-		if( hakbun.equals("exit") ) {
+		// 학번에 exit 입력되면 input() 종료.
+		if( hakbun.toLowerCase().equals("exit") ) {
 			return true;
 		}
 		
+		// 지역변수에도 필드에도 같은 이름의 변수가 선언되어 있다면 this. 를 써주는게 좋다.
 		System.out.println("Name =>>");
-		irum = scan.next();
+		this.irum = scan.next();
 		
 		System.out.println("Address =>>");
-		addr = scan.next();
+		this.addr = scan.next();
 		
 		System.out.println("Phone No. =>>");
-		phoneNo = scan.next();
+		this.phoneNo = scan.next();
 		
 		System.out.println("E-mail =>>");
-		email = scan.next();
-		
-		System.out.println();
+		this.email = scan.next();
 		
 		return false;
 	}
-
+ 
 	@Override
 	public void output() {
 		

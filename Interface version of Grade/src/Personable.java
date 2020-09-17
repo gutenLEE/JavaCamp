@@ -5,3 +5,4 @@ public interface Personable {
 	abstract void output();
 	
 }
+ 
