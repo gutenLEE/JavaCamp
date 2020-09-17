@@ -39,6 +39,7 @@ public class PerformInterfaceVersionOfGrade {
 		}
 	}	
 	
+	// instanceof 키워드로 나의 고민을 해결했다.
 	static int inputData(Personable obj[]) {
 		
 		int i, cnt = 0;
