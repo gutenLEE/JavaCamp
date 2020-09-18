@@ -13,36 +13,34 @@ public class BookInfo extends Book implements Lendable {
 		this.borrower = "0";
 	}
 	
-	@Override
-	public boolean input() {
-		// 책 입고
-		Scanner scan = new Scanner(System.in); 
-		
-		System.out.print("책 바코드 입력 => ");
-		bookCode = scan.next();
-		if(bookCode.equals("exit"))
-			return true;
-		
-		System.out.print("책 제목 => ");
-		title = scan.next();
-		
-		System.out.print("저자 => ");
-		author = scan.next();
-		
-		System.out.print("출판사 => ");
-		company = scan.next();
-		
-		return false;
-	}
 
+	public void checkOut(String borrower) {
+		
+		this.state = '1';
+		this.borrower = borrower;
+	
+		System.out.printf("대출완료 : [ %6s ] [ %6s ] \n",title, author);
+	}
+	
+	public void checkIn(String borrower) {
+		
+		this.state = '0';
+		this.borrower = "0";
+		
+		System.out.printf("반납완료 : [ %6s ] [ %6s ] \\n", title, author);
+	}
+	
 	@Override
 	public void output() {
 		
-		System.out.println(bookCode);
-		System.out.println(title);
-		System.out.println(author);
-		System.out.println(company);
+		System.out.printf(" %3s         %8s          %5s          %5s \n", bookCode, title, author, company);
 		
 	}
+	public void output(byte state) {
+		System.out.printf(" %3s         %8s          %5s          %5s        %5s \n", 
+																bookCode, title, author, company, borrower);
+	}
+
 
 }
+		

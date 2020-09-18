@@ -1,5 +1,5 @@
 
 public interface Lendable {
-	abstract boolean input();
+//	abstract void input(String borrower);
 	abstract void output();
 }
