@@ -9,7 +9,7 @@ public class BookInfo extends Book implements Lendable {
 		super(bookCode,title);
 		this.author = author;
 		this.company = company;
-		this.state = '0';
+		this.state = 0;
 		this.borrower = "0";
 	}
 	
@@ -18,16 +18,16 @@ public class BookInfo extends Book implements Lendable {
 		
 		this.state = '1';
 		this.borrower = borrower;
-	
+		System.out.println("디버깅 코드 borrower : " + this.borrower);
 		System.out.printf("대출완료 : [ %6s ] [ %6s ] \n",title, author);
 	}
 	
 	public void checkIn(String borrower) {
 		
-		this.state = '0';
+		this.state = 0;
 		this.borrower = "0";
 		
-		System.out.printf("반납완료 : [ %6s ] [ %6s ] \\n", title, author);
+		System.out.printf("반납완료 : [ %6s ] [ %6s ] \n", title, author);
 	}
 	
 	@Override

@@ -4,7 +4,9 @@ public class performLibrary {
 	
 	final static int MAX = 100;
 	final static int RENT_LIMIT = 5;
-
+	final static byte STATE_CheckIN = 0; // 0 : 미대출 상태.
+	final static byte STATE_CheckOUT = 1;
+	
 	static int book_cnt = 0;
 	static int member_cnt = 0;
 	
@@ -66,7 +68,7 @@ public class performLibrary {
 				printRegister(obj2);
 				break;
 			case 3:
-				printRentReturn(obj1);
+				printCheckOutList(obj1);
 				break;
 			default:
 				break;
@@ -74,16 +76,17 @@ public class performLibrary {
 	}
 
 
-	static void printRentReturn(Lendable[] obj1) {
+	static void printCheckOutList(Lendable[] obj1) {
 		
-		System.out.println("책 코드         제목           저자          출판사         대출인");
-		System.out.println("==================================================================");
+		System.out.println("                        ### 대출 목록 ##                          ");
+		System.out.println("────────────────────────────────────────────────────────────────────────────");
+		System.out.println("책 코드         제목           저자            출판사                대출인");
+		System.out.println("=============================================================================");
 		BookInfo data [] = (BookInfo [])obj1;
 
 		for(int i = 0; i < book_cnt; i++) {
-			byte state = '1';
-			if(data[i].state == 1) {
-				data[i].output(state);
+			if(data[i].state != STATE_CheckIN) {
+				data[i].output(STATE_CheckOUT);
 			}
 		}// end for
 	}
@@ -98,8 +101,8 @@ public class performLibrary {
 			}
 		}
 		else {
-			System.out.println("회원 코드        이름              전화번호               주소");
-			System.out.println("=======================================================================");
+			System.out.println("회원 코드             이름                      전화번호                      주소");
+			System.out.println("====================================================================================");
 			for(int i = 0; i < member_cnt; i++) {
 				obj[i].output();
 			}
@@ -109,6 +112,7 @@ public class performLibrary {
 	static void register(Lendable obj []) {
 		
 		Scanner scan = new Scanner(System.in);
+		
 		if(obj instanceof BookInfo[]) {
 			String bookCode, title, author, company;
 			
@@ -139,7 +143,7 @@ public class performLibrary {
 			
 			for(int i = 0; i < MAX; i++) {
 				
-				System.out.printf("\n    %3d.\n", i + 1);
+				System.out.printf("\n    %3d.\n", member_cnt);
 				
 				System.out.print("회원 코드 입력 => ");
 				memberCode = scan.next();
@@ -191,8 +195,8 @@ public class performLibrary {
 		
 		System.out.println("(최대 5권 대출 가능합니다)");
 		System.out.println("===========================================");
-	
 		System.out.println("대출할 도서의 코드를 입력하세요");
+		
 		for(int i = 0; i < RENT_LIMIT; i++ ) {
 			
 			System.out.println(" => ");

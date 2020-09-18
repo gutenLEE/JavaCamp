@@ -16,6 +16,6 @@ public class MemberInfo extends Member implements Lendable {
 	@Override
 	public void output() {
 		
-		System.out.printf(" %s         %s          %s          %s/n", memberCode, name, phoneNo, addr);
+		System.out.printf(" %3s         %4s          %11s          %10s \n", memberCode, name, phoneNo, addr);
 	}
 }
