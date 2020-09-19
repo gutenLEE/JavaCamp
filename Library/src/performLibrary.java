@@ -38,8 +38,9 @@ public class performLibrary {
 					break;
 				case 5:
 					search(obj1, obj2);
-				default:
-					break;
+				case 6:
+					System.out.println("종료되었습니다.");
+					return;
 			}
 		}
 	}
@@ -54,8 +55,8 @@ public class performLibrary {
 		System.out.println("│ 1. 전체 도서 조회   │");
 		System.out.println("│ 2. 전체 회원 조회   │");
 		System.out.println("│ 3. 대출중 도서 조회 │");
-		System.out.println("│ 2. 대출중 회원 조회 │");
-		System.out.println("│ 3. 종료             │");
+		System.out.println("│ 4. 대출중 회원 조회 │");
+		System.out.println("│ 5. 종료             │");
 		System.out.println("└─────────────────────┘");
 		System.out.print("번호 선택 => ");
 		int result = scan.nextInt();
@@ -70,7 +71,8 @@ public class performLibrary {
 			case 3:
 				printCheckOutList(obj1);
 				break;
-			default:
+			case 4:
+				// 구현하기.
 				break;
 		}
 	}
@@ -244,9 +246,13 @@ public class performLibrary {
 				
 				if(data[j].bookCode.equals(bookCode)) {
 					data[j].checkIn(borrower);
-					break; // break가 없을 때 왜 무한루프를 돌았을까???!!! 
+					break; 
 				}
 			}
-		}// end for
+			if(i == RENT_LIMIT -1)
+				System.out.println("## 반납 완료 ##");
+		}
+		// end for
+		
 	}
 }
