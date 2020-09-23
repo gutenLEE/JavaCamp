@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -12,8 +13,9 @@ public class Grade_test {
 	static int choice;
 	
 	public static void main(String[] args) {
-	
-		Grade arr [] = new Grade[Max];
+		
+		ArrayList <Grade> arr = new ArrayList<Grade>();
+//		Grade arr [] = new Grade[Max];
 		Scanner scan = new Scanner(System.in);
 		
 		while(true) {
@@ -43,22 +45,29 @@ public class Grade_test {
 		}
 	}
 	
-	static void performInput(Grade arr[]) {
+	static void performInput(ArrayList <Grade> arr) {
 		// new => Grade 클래스를 메모리에 올려라
 		// Heap Area [ method Area의 non-static zone 주소가 heap Area에 기록된다]
 		// 기계어 코드는 method area에 있다.
 		// obj 에는 heap area에 할당된 주소가 담긴다.
 		
 		// **중복 시 return하면 이 함수는 return줄 아래로는 수행되지 않는다!!!!**
-		arr[Grade.cnt] = new Grade();
-		arr[Grade.cnt].createScore();
+		arr.add(Grade.cnt, new Grade());
+		arr.get(Grade.cnt).createScore();
 		validateData(arr);
-		arr[Grade.cnt].getGrade();
+		arr.get(Grade.cnt).getGrade();
 		Grade.cnt++;
+		
+		////////////////////////////////////////////////////////////
+//		arr[Grade.cnt] = new Grade();
+//		arr[Grade.cnt].createScore();
+//		validateData(arr);
+//		arr[Grade.cnt].getGrade();
+//		Grade.cnt++;
 		
 	}
 	
-	static void performOutput(Grade arr[]) {
+	static void performOutput(ArrayList <Grade> arr) {
 		System.out.println("출력 블록 Grade.cnt =>" + Grade.cnt); // 디버깅 코드
 		
 		// 예외처리
@@ -76,8 +85,8 @@ public class Grade_test {
 		Grade.total_avg = 0;
 		
 		for(int i = 0; i < Grade.cnt; i++) {
-			arr[i].readGradeSheet();
-			Grade.total_avg += arr[i].avg;
+			arr.get(i).readGradeSheet();
+			Grade.total_avg += arr.get(i).avg;
 		}
 		System.out.println();
 		System.out.printf("              총 학생 수 : %3d 명     전체 평균 :  %.2f 점", Grade.cnt, Grade.getTotalAvg());
@@ -97,16 +106,16 @@ public class Grade_test {
 		System.out.println("=====> 입력 : ");
 	}
 	
-	static boolean validateData(Grade arr[]) {
+	static boolean validateData(ArrayList <Grade> arr) {
 		// 디버깅 코드
 		System.out.println("Grade.cnt =>" + Grade.cnt);
 
 		for(int i = 0; i < Grade.cnt; i++) {
 			// 디버깅 코드
-			System.out.println("arr[i].studentCode =>" + arr[i].studentCode);
-			System.out.println("arr[Grade.cnt] =>" + arr[Grade.cnt].studentCode );
+			System.out.println("arr[i].studentCode =>" + arr.get(i).studentCode);
+			System.out.println("arr[Grade.cnt] =>" + arr.get(i).studentCode );
 			
-			if(arr[i].studentCode.contentEquals(arr[Grade.cnt].studentCode)) {
+			if(arr.get(i).studentCode.contentEquals(arr.get(Grade.cnt).studentCode)) {
 				System.out.println("중복 학번 존재");
 				return true;
 			}
@@ -115,7 +124,7 @@ public class Grade_test {
 		return false;
 	}
 	
-	static void search(Grade arr[]) {
+	static void search(ArrayList <Grade> arr) {
 		
 		boolean F = false;
 		String search;
@@ -126,8 +135,8 @@ public class Grade_test {
 		
 		for(int i = 0; i < Grade.cnt; i++) {
 			
-			if(arr[i].studentCode.contentEquals(search)) {
-				arr[i].searchGradeSheet();
+			if(arr.get(i).studentCode.contentEquals(search)) {
+				arr.get(i).searchGradeSheet();
 				F = true;
 				break; // 여기를 return으로 바꾸면 굳이 true, false를 사용할 필요가 없다!!!
 			}
@@ -137,7 +146,7 @@ public class Grade_test {
 			System.out.println("학번이 존재하지 않습니다.");
 	}
 	
-	static void update(Grade arr[]) {
+	static void update(ArrayList <Grade> arr) {
 		
 		String search;
 		Scanner scan = new Scanner(System.in);
@@ -147,17 +156,17 @@ public class Grade_test {
 		
 		for(int i = 0; i < Grade.cnt; i++) {
 			
-			if(arr[i].studentCode.contentEquals(search)) {
+			if(arr.get(i).studentCode.contentEquals(search)) {
 				
-				arr[i].updateGradeSheet();
-				arr[i].getGrade();
+				arr.get(i).updateGradeSheet();
+				arr.get(i).getGrade();
 				System.out.println("수정 완료");
 				break;
 			}
 		}
 	}
 	
-	static void delete(Grade arr[]) {
+	static void delete(ArrayList <Grade> arr) {
 		
 		int index = 0;
 		String search;
@@ -171,17 +180,14 @@ public class Grade_test {
 			System.out.println("삭제 블록 Grade.cnt =>" + Grade.cnt); // 디버깅 코드
 			
 			// find 'studentCode' that user input.
-			if(arr[i].studentCode.contentEquals(search)) {
+			if(arr.get(i).studentCode.contentEquals(search)) {
 				index = i;
 				System.out.println("삭제 완료");
 			}
 		}
-		// after delete, to reorganize the index of array.
-		// Grade.cnt -1 을 해줘야 마지막 배열에서 오류가 안난다. 
-		//obj[99] = obj[100] => index out of range
-		for(int i = index; i < Grade.cnt; i++) {
-			arr[i] = arr[i + 1];
-		}
+	
+		
+		arr.remove(index);
 		// after one element of array, down the length of array
 		Grade.cnt -= 1;
 	}

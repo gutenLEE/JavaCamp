@@ -1,6 +1,7 @@
 import java.util.Scanner;
+import java.io.Serializable;
 
-public class Grade {
+public class Grade implements Serializable, Cloneable {
 	String name, studentCode;
 	int kor, math, eng, sum;
 	double avg;
@@ -10,7 +11,9 @@ public class Grade {
 	static int cnt = 0;
 	static double total_avg = 0;
 	
-	Grade(){	}
+	Grade(){
+
+	}
 	
 	void createScore(){
 		
@@ -85,5 +88,52 @@ public class Grade {
 				name, studentCode, eng, kor, math, sum, avg, grade);
 		System.out.println("戌式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式戎");
 	}
+	
+	public String toString() {
+		String str = "name : " + name + " studentCode : " + studentCode;
+		
+		return str;
+	}
+	
+	public boolean equals(Object obj) {
+		//String name, studentCode;
+		//int kor, math, eng
+		
+		if(!(obj instanceof Grade))
+			return false;
+		
+		Grade grade = (Grade)obj;
+		if(name.equals(grade.name) && // string擎 偌羹罹憮
+			studentCode.equals(grade.studentCode) &&
+			kor == grade.kor &&
+			eng == grade.eng &&
+			math == grade.math)
+			return true;
+		else
+			return false;
+//		if(!(name == grade.name))
+//			return false;
+//		if(!(studentCode == grade.studentCode))
+//			return false;
+//		if(!(kor == grade.kor))
+//			return false;
+//		if(!(eng == grade.eng))
+//			return false;
+//		if(!(math == grade.math))
+//			return false;
+		
+	}
+	
+	public Object clone() {
+		
+		try{
+			return super.clone();
+		}
+		catch(CloneNotSupportedException e) {
+			return null;
+		}
+	}
+
+
 }
 			
