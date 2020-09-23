@@ -5,11 +5,8 @@ import java.util.Scanner;
 // 메소드에서 return을 활용하면 true, false를 굳이 사용하지 않아도 된다!
 
 public class Grade_test {
+
 	
-	// Stack Area [ main, process_input, process_output ] 
-	// static 키워드가 붙으면 자동으로 메모리에 할당.
-	
-	static int Max = 100;
 	static int choice;
 	
 	public static void main(String[] args) {
@@ -46,10 +43,7 @@ public class Grade_test {
 	}
 	
 	static void performInput(ArrayList <Grade> arr) {
-		// new => Grade 클래스를 메모리에 올려라
-		// Heap Area [ method Area의 non-static zone 주소가 heap Area에 기록된다]
-		// 기계어 코드는 method area에 있다.
-		// obj 에는 heap area에 할당된 주소가 담긴다.
+
 		
 		// **중복 시 return하면 이 함수는 return줄 아래로는 수행되지 않는다!!!!**
 		arr.add(Grade.cnt, new Grade());
@@ -57,13 +51,6 @@ public class Grade_test {
 		validateData(arr);
 		arr.get(Grade.cnt).getGrade();
 		Grade.cnt++;
-		
-		////////////////////////////////////////////////////////////
-//		arr[Grade.cnt] = new Grade();
-//		arr[Grade.cnt].createScore();
-//		validateData(arr);
-//		arr[Grade.cnt].getGrade();
-//		Grade.cnt++;
 		
 	}
 	
@@ -106,7 +93,7 @@ public class Grade_test {
 		System.out.println("=====> 입력 : ");
 	}
 	
-	static boolean validateData(ArrayList <Grade> arr) {
+	static void validateData(ArrayList <Grade> arr) {
 		// 디버깅 코드
 		System.out.println("Grade.cnt =>" + Grade.cnt);
 
@@ -117,11 +104,12 @@ public class Grade_test {
 			
 			if(arr.get(i).studentCode.contentEquals(arr.get(Grade.cnt).studentCode)) {
 				System.out.println("중복 학번 존재");
-				return true;
+				arr.remove(Grade.cnt);
+				Grade.cnt--;
+				return;
 			}
 		}
 		System.out.println("성적 등록 성공");
-		return false;
 	}
 	
 	static void search(ArrayList <Grade> arr) {
@@ -141,7 +129,6 @@ public class Grade_test {
 				break; // 여기를 return으로 바꾸면 굳이 true, false를 사용할 필요가 없다!!!
 			}
 		}
-
 		if(F == false)
 			System.out.println("학번이 존재하지 않습니다.");
 	}
@@ -168,30 +155,17 @@ public class Grade_test {
 	
 	static void delete(ArrayList <Grade> arr) {
 		
-		int index = 0;
 		String search;
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("삭제할 학번을 입력하세요 =>");
 		search = scan.next();
 		
-		for(int i = 0; i < Grade.cnt; i++) {
-			
-			System.out.println("삭제 블록 Grade.cnt =>" + Grade.cnt); // 디버깅 코드
-			
-			// find 'studentCode' that user input.
-			if(arr.get(i).studentCode.contentEquals(search)) {
-				index = i;
-				System.out.println("삭제 완료");
-			}
-		}
-	
-		
-		arr.remove(index);
+		arr.remove(search);
+		System.out.println("삭제 완료");
 		// after one element of array, down the length of array
 		Grade.cnt -= 1;
 	}
 	
 }
 
-// 질문 search 변수가 반복적으로 선언되고 있는데 한번만 선언할 수 없나?
