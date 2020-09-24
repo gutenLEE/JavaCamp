@@ -10,6 +10,7 @@ public class Grade_test {
 	public static void main(String[] args) {
 		
 		ArrayList <Grade> arr = new ArrayList<Grade>();
+
 //		Grade arr [] = new Grade[Max];
 		Scanner scan = new Scanner(System.in);
 		

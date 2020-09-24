@@ -94,7 +94,7 @@ public class Grade implements Serializable, Cloneable {
 		
 		return str;
 	}
-	
+	/*
 	public boolean equals(Object obj) {
 		//String name, studentCode;
 		//int kor, math, eng
@@ -111,19 +111,8 @@ public class Grade implements Serializable, Cloneable {
 			return true;
 		else
 			return false;
-//		if(!(name == grade.name))
-//			return false;
-//		if(!(studentCode == grade.studentCode))
-//			return false;
-//		if(!(kor == grade.kor))
-//			return false;
-//		if(!(eng == grade.eng))
-//			return false;
-//		if(!(math == grade.math))
-//			return false;
-		
 	}
-	
+	*/
 	public Object clone() {
 		
 		try{
@@ -132,6 +121,22 @@ public class Grade implements Serializable, Cloneable {
 		catch(CloneNotSupportedException e) {
 			return null;
 		}
+	}
+	public int hashCode() {
+		return studentCode.hashCode();
+	}
+	
+	//Object 의 equals 는 객체 주소를 비교한다. equals 메서드를 오버라이딩한다. 
+	public boolean equals(Object obj) {
+		
+		if(!(obj instanceof Grade))
+			return false;
+		
+		Grade grade = (Grade)obj; // 캐스팅 해줘야지 Name클래스의 필드에 접근 가능하다. 
+		if (studentCode.equals(grade.studentCode))
+			return true;
+		else
+			return false;
 	}
 
 
