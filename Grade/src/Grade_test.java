@@ -1,11 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 // 메소드에서 return을 활용하면 true, false를 굳이 사용하지 않아도 된다!
 
 public class Grade_test {
-
 	
 	static int choice;
 	
@@ -39,16 +37,27 @@ public class Grade_test {
 				System.out.println("finished");
 				break;
 			}
-		}
+		} // end while(true)
+		scan.close();
 	}
 	
 	static void performInput(ArrayList <Grade> arr) {
 
-		
 		// **중복 시 return하면 이 함수는 return줄 아래로는 수행되지 않는다!!!!**
 		arr.add(Grade.cnt, new Grade());
 		arr.get(Grade.cnt).createScore();
 		validateData(arr);
+		
+		/*
+		 * for(Grade dat : arr ) {                                => ※※ 향상된 반복문 ※※
+		 * 		if(obj.studentCode.equals(dat.studentCode)){ 
+		 * 			System.out.println("중복 학번")}}
+		 * 			return;
+		 * }
+		 * 
+		 * arr.add(obj);
+		 * */
+		
 		arr.get(Grade.cnt).getGrade();
 		Grade.cnt++;
 		
@@ -58,6 +67,7 @@ public class Grade_test {
 		System.out.println("출력 블록 Grade.cnt =>" + Grade.cnt); // 디버깅 코드
 		
 		// 예외처리
+		// if(arr.size() == 0)
 		if(Grade.cnt == 0) {
 			System.out.println("출력할 성적 정보가 없습니다");
 			return;
@@ -75,6 +85,13 @@ public class Grade_test {
 			arr.get(i).readGradeSheet();
 			Grade.total_avg += arr.get(i).avg;
 		}
+		
+		/*
+		 for( Grade dat : arr ){
+		 	dat.readGradeSheet();
+		 	Grade.total_avg += arr.avg;
+		 }
+		 */
 		System.out.println();
 		System.out.printf("              총 학생 수 : %3d 명     전체 평균 :  %.2f 점", Grade.cnt, Grade.getTotalAvg());
 		
@@ -131,6 +148,7 @@ public class Grade_test {
 		}
 		if(F == false)
 			System.out.println("학번이 존재하지 않습니다.");
+		scan.close();
 	}
 	
 	static void update(ArrayList <Grade> arr) {
@@ -143,6 +161,7 @@ public class Grade_test {
 		
 		for(int i = 0; i < Grade.cnt; i++) {
 			
+			
 			if(arr.get(i).studentCode.contentEquals(search)) {
 				
 				arr.get(i).updateGradeSheet();
@@ -151,6 +170,7 @@ public class Grade_test {
 				break;
 			}
 		}
+		scan.close();
 	}
 	
 	static void delete(ArrayList <Grade> arr) {
@@ -161,11 +181,39 @@ public class Grade_test {
 		System.out.println("삭제할 학번을 입력하세요 =>");
 		search = scan.next();
 		
-		arr.remove(search);
-		System.out.println("삭제 완료");
-		// after one element of array, down the length of array
-		Grade.cnt -= 1;
-	}
+		System.out.println("디버깅 코드 Grade.cnt :" + Grade.cnt);
 	
+		for(int i = 0; i < Grade.cnt; i++) {
+			
+			if(arr.get(i).studentCode.contentEquals(search)){
+				arr.remove(i);
+				System.out.println("삭제 완료");
+				break;
+			}
+		}			
+		Grade.cnt -= 1;
+		scan.close();
+//		arr.remove(search); => Unlikely argument type String for remove(Object) on a Collection<Grade>
+		
+		
+		/*
+		 public boolean remove(Object o)
+			Removes the first occurrence of the specified element from this list, if it is present. 
+			If the list does not contain the element, it is unchanged. 
+			More formally, removes the element with the lowest index i such that (o==null ? get(i)==null : o.equals(get(i))) (if such an element exists). 
+			Returns true if this list contained the specified element (or equivalently, if this list changed as a result of the call).
+			Specified by:
+			remove in interface Collection<E>
+			Specified by:
+			remove in interface List<E>
+			Overrides:
+			remove in class AbstractCollection<E>
+			Parameters:
+			o - element to be removed from this list, if present
+			Returns:
+			true if this list contained the specified element
+		 */
+	}
 }
 
+// 하나의 메서드는 하나의 기능만 수행하는 것이 좋다. 
