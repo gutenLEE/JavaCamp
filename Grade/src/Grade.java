@@ -107,7 +107,7 @@ public class Grade implements Serializable, Cloneable {
 			studentCode.equals(grade.studentCode) &&
 			kor == grade.kor &&
 			eng == grade.eng &&
-			math == grade.math)
+			math == grade.math)  
 			return true;
 		else
 			return false;
@@ -138,7 +138,6 @@ public class Grade implements Serializable, Cloneable {
 		else
 			return false;
 	}
-
-
+	
 }
 			

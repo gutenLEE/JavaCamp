@@ -226,8 +226,8 @@ public class Grade_hash {
 		hashtable.remove(search);
 		System.out.println("삭제 완료");
 
-		
-		// scan.close(); 하면 왜 NoSuchElement가 발생하는거지?
+		System.out.println(hashtable.get(search));
+//		scan.close();//하면 왜 NoSuchElement가 발생하는거지? => 키보드는 하나 밖에 없기때문에 프로그램에서 키보드 입력을 close 해버리면 다시 사용할 수 없다.
 		
 		
 		
