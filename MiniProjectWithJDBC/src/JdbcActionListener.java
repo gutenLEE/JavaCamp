@@ -9,12 +9,12 @@ public class JdbcActionListener implements ActionListener {
 	JTable table;
 	JTextField textField [];
 	
-	// 등록, 조회
+	// 등록, 조회 eee
 	JdbcActionListener(JTable table, JTextField textField []){
 		this.table = table;
 		this.textField = textField;
 	}
-	
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

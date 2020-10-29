@@ -1,7 +1,9 @@
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -50,7 +52,7 @@ public class JdbcConnection {
 	 	}
 	 	catch(Exception e){
 	 		popUp("데이터베이스 오류입니다." + e.getMessage());
-	 		System.out.println(e.getMessage());
+	 		e.printStackTrace();
 	 	}
 	 	finally{
 	 		try{
@@ -91,6 +93,7 @@ public class JdbcConnection {
 		
 		String sql1 = "select count(*) from timelog";
 		String sql2 = "select * from userInfo u, timelog t where u.id = t.id order by study_time";
+		
 		Connection con = null;
 		
 		try{
@@ -115,15 +118,15 @@ public class JdbcConnection {
 					vo.end_time = rs2.getString("end_time");
 					vo.study_time = rs2.getString("study_time");
 					System.out.println(vo.id);
-					System.out.println(vo.today);
-					System.out.println(vo.start_time);
+					System.out.println("오늘 날짜 : " + vo.today);
+					System.out.println("시작 시간" + vo.start_time);
 					selectIntoTable(vo);
 				}
 				popUp("출력 성공");
 			}
 		}
 		catch(Exception e){
-			System.out.println("오류오류");
+			System.out.println("전체 조회 오류");
 		}
 		finally{
 			try{
@@ -140,6 +143,57 @@ public class JdbcConnection {
 		}
 	}
 	void updateIntoTable(TimeVO obj) {
+		
+	 	PreparedStatement pstmt_date = null;
+		ResultSet rs1 = null;
+		
+		String sql1 = "select today from timelog where id = ?";
+		Connection con = null;
+		
+		try{
+			con = connectDB();
+			pstmt_date = con.prepareStatement(sql1);
+			pstmt_date.setString(1, obj.id);
+			System.out.println("obj.id ==================>" + obj.id);
+			rs1 = pstmt_date.executeQuery();
+			System.out.println("0");
+			rs1.next();
+			System.out.println("00");
+			
+			if(!rs1.next()) {
+				System.out.println("0000000000000000");
+				popUp("출력할 데이터가 없습니다.");
+			}
+			else {
+				while(rs1.next()){
+					java.sql.Date date = rs1.getDate(1);
+					java.sql.Time time = rs1.getTime(1);
+					java.util.Date utilDate = new java.util.Date(date.getTime());
+					System.out.println("utilDate" + utilDate);
+					
+					System.out.println("날짜 테스트이용요요용" + date);
+					System.out.println("시간 테스트이요용용" + time);
+	
+//					vo.start_time = rs2.getString("start_time");
+					System.out.println(obj.id);
+				}
+				popUp("출력 성공");
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			System.out.println("날짜만 조회 오류 : " + e.getMessage());
+		}
+		finally{
+			try{
+				if(rs1 != null) rs1.close();
+				if(pstmt_date != null) pstmt_date.close();
+				if(con != null) con.close();
+			}
+			catch(Exception e){
+				System.out.println("jdbc 객체 close error");
+			}
+		}
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
@@ -172,39 +226,37 @@ public class JdbcConnection {
 		
 	}
 	void timeStart() {
-		
-		String id = textField[0].getText();
-		
+		String id = null;
 		TimeVO vo = new TimeVO(id);
+		vo.id = textField[0].getText();
+		System.out.println("아이디=========================" + vo.id);	
 		
 		//System.out.println("디버깅 : " + id);
 		//System.out.println(vo.start_time);
-		
-		// 여기서부터 렉이 걸리는 이유가 왜일까. => 해결. 그냥 해결됨.
 		
 		// 아래부터 jdbc update하기
 		Connection con = null;
 	 	con = connectDB();
 	 	PreparedStatement pstmt = null;
 	 	
-	 	String sql = "update timelog set start_Time = ? where ID = ?";
+	 	String sql = "insert into timelog(id, today, start_time) values(?, sysdate, sysdate)";
 		
 	 	try{
 	 		pstmt = con.prepareStatement(sql);
-	 		pstmt.setString(1, vo.start_time);
-	 		pstmt.setString(2, id);
+	 		pstmt.setString(1, vo.id);
 	 
 	 		int res = pstmt.executeUpdate();
 	 		
 	 		if(res == 1) {
+	 			// 테이블에 결과 출력하는 메서드
+	 			System.out.println("jdbc timeStart successs!");
 	 			updateIntoTable(vo);
-	 			System.out.println("jdbc update successs!");
 	 		}
 	 		else
-	 			System.out.println("This is update() : failed to connection");
+	 			System.out.println("This is timeStart() : failed to connection");
 	 	}
 	 	catch(Exception e){
-	 		popUp("데이터베이스 오류입니다." + e.getMessage());
+	 		popUp("time_start 데이터베이스 오류입니다." + e.getMessage());
 	 	}
 	 	finally{
 	 		try{
