@@ -14,7 +14,8 @@ public class Jsoup {
         selTest.crawl();
 
 	}
-	
+
+
 	// WebDriver
 	public WebDriver driver;
 	
@@ -49,65 +50,58 @@ public class Jsoup {
                
                for(int j = 0; j < 5; j++) {
 					for(int i = 0; i < 9; i++) {
+						
 						System.out.println("i => " + i);
-						//Thread.sleep(1000);
-						//WebElement pages2 = driver.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[3]/tbody/tr[3]/td/table/tbody/tr[2]/td/span"));
-						//driver.get(base_url);
-						//System.out.println(driver.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[3]/tbody/tr[3]/td/table/tbody/tr[2]/td/span/a["+ i +"]")).getText());
 						
-/*						List<WebElement> web = driver.findElements(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[3]/tbody/tr[3]/td/table/tbody/tr[2]/td/span/a"));*/
-						
+						tableCrawl();
+						// 페이지 index가 있는 a 태그만 선택
 						List<WebElement> web = driver.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[3]/tbody/tr[3]/td/table/tbody/tr[2]/td/span")).findElements(By.className("gray"));
 						web.get(i).click();
-						//System.out.println(driver.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[3]/tbody/tr[3]/td/table/tbody/tr[2]/td/span")).findElements(By.className("gray")));
-						//Thread.sleep(200);
-						/*
-						 * driver.findElement(By.xpath("/html/body/form[2]/table/" +
-						 * "tbody/tr[5]/td/table[3]/tbody/" + "tr[3]/td/table/tbody/tr[2]/td/" +
-						 * "span/a["+ i +"][@onclick='javascript: navigation("+ i
-						 * +"); return false;']")).click();
-						 */
 						
-						
-						/*
-						 * driver.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]/" +
-						 * "td/table[3]/tbody/tr[3]/td/table/tbody/tr[2]/td/span/" +
-						 * "a[@onclick='navigation("+ i +")']")).click();
-						 */
-						
-						
-						//driver.navigate().back();
+						Thread.sleep(200);
 					}
+					// 페이징을 담당하는 구역의 전체 a 태그 선택 -> 전체 a 태그들 중 마지막 a태그는 다음 페이지 링크
 					List<WebElement> web = driver.findElements(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[3]/tbody/tr[3]/td/table/tbody/tr[2]/td/span/a"));
 					web.get(web.size() - 1).click();
 					System.out.println("=================");
                }
                
-				/*
-				 * WebElement web = driver.findElement(By.xpath("/html/body/form[2]"));
-				 * WebElement tableElem = web.findElement(By.xpath("/html/body/form[2]/table"));
-				 * WebElement trElem =
-				 * tableElem.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]"));
-				 * WebElement elem = trElem.findElement(By.xpath(
-				 * "/html/body/form[2]/table/tbody/tr[5]/td/table[2]"));
-				 * //System.out.println(elem);
-				 * 
-				 * 
-				 * List<WebElement> elems = elem.findElements(By.className("btl2"));
-				 * 
-				 * for(WebElement el : elems) {
-				 * 
-				 * //System.out.println(el.getText()); List<WebElement> cols =
-				 * el.findElements(By.tagName("td"));
-				 * 
-				 * //cols.get(3).click(); //System.out.println(cols.get(3).getText()); }
-				 */
-               
+
            } catch (Exception e) {
                e.printStackTrace();
-           } finally {
-               driver.close();
-           }
+           } 
     }
+    
+	// table -> tr 클릭 메서드
+	public void tableCrawl() {
+
+		try {
+			
+			// 테이블 row수 구하기
+			WebElement web = driver.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[2]"));
+			List<WebElement> trList = web.findElements(By.xpath("tbody/tr"));
+			final int ROWS = trList.size();
+			
+			
+			for(int i = 0; i < ROWS; i++) {
+				
+				WebElement anchor = driver.findElement(By.xpath("/html/body/form[2]/table/tbody/tr[5]/td/table[2]/tbody/tr["+ (i + 1) +"]/td[4]/span/a"));
+				anchor.click();
+				Thread.sleep(2000);
+				
+				// 내용물 크롤링
+				
+				driver.navigate().back();
+				//
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		//System.out.println(anchor.getText());
+		
+		// /html/body/form[2]/table/tbody/tr[5]/td/table[2]/tbody/tr[1]/td[4]/span/a
+	}
     
 }
